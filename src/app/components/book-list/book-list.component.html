@@ -1,0 +1,36 @@
+<div *ngIf="books.length; else noBooks">
+    <h2>Book List</h2>
+    <ul>
+      <li *ngFor="let book of books">
+        <div>
+          <strong>{{ book.title }}</strong>
+          <span> by {{ book.author }}</span>
+        </div>
+      </li>
+    </ul>
+    <!-- Botón para agregar un nuevo libro -->
+    <button class="button add-button" (click)="openModal()">Add New Book</button>
+  </div>
+  <ng-template #noBooks>
+    <p>No books available.</p>
+  </ng-template>
+  
+  <!-- Modal para agregar un libro -->
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>Add New Book</h3>
+      <form (ngSubmit)="addBook()">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input id="title" type="text" [(ngModel)]="newBook.title" name="title" required />
+        </div>
+        <div class="form-group">
+          <label for="author">Author:</label>
+          <input id="author" type="text" [(ngModel)]="newBook.author" name="author" required />
+        </div>
+        <button class="button" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  
