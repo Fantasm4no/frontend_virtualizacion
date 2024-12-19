@@ -1,91 +1,120 @@
-/* You can add global styles to this file, and also import other style files */
 /* Estilo general */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  /* Contenedor principal */
-  h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 1rem;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 10px 0;
-    padding: 15px;
-    display: flex;
-    flex-direction: column; /* Cambia la disposición para que sea vertical */
-    align-items: flex-start; /* Alinea los elementos al inicio */
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  li:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Texto del libro */
-  li strong {
-    font-size: 1.2rem;
-    color: #2c3e50;
-    margin-bottom: 5px; /* Espacio entre el título y el autor */
-  }
-  
-  li span {
-    font-size: 1rem;
-    color: #7f8c8d;
-  }  
-  
-  /* Mensaje cuando no hay libros */
-  p {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #95a5a6;
-  }
-  
-  /* Botones para acciones futuras */
-  .button {
-    background: #3498db;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  
-  .button:hover {
-    background: #2980b9;
-  }
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-/*----------------------------------------------------------------------------------------------------------------------------------*/
-  
-/* Botón de agregar libro */
+/* Contenedor principal */
+h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1.5rem; /* Más espacio debajo del título */
+}
+
+/* Lista de libros */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px; /* Ancho máximo */
+}
+
+/* Estilo de cada libro */
+li {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px 0; /* Espaciado entre libros */
+  padding: 20px; /* Más espacio interno */
+  display: flex;
+  justify-content: space-between; /* Separar texto y botones */
+  align-items: center; /* Centrar verticalmente */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+li:hover {
+  transform: translateY(-2px); /* Animación al pasar el cursor */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenedor del texto */
+li div {
+  display: flex;
+  flex-direction: column; /* Pone el autor debajo del título */
+  flex-grow: 1; /* Permite que el texto ocupe el espacio disponible */
+  margin-right: 20px; /* Espacio entre el texto y los botones */
+}
+
+li strong {
+  font-size: 1.3rem;
+  color: #2c3e50;
+}
+
+li span {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin-top: 5px; /* Espaciado entre el título y el autor */
+}
+
+/* Botones */
+.button-group {
+  display: flex;
+  gap: 10px; /* Espaciado uniforme entre botones */
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Botón Delete */
+.delete-button {
+  background: #e74c3c;
+  color: white;
+}
+
+.delete-button:hover {
+  background: #c0392b;
+}
+
+/* Botón Modify */
+.modify-button {
+  background: #f39c12;
+  color: white;
+}
+
+.modify-button:hover {
+  background: #e67e22;
+}
+
+/* Botón Add New Book */
 .add-button {
-  margin-top: 20px;
+  display: block;
+  margin: 30px auto;
   background-color: #2ecc71;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .add-button:hover {
   background-color: #27ae60;
 }
+
 
 /* Modal */
 .modal {
@@ -104,16 +133,18 @@ body {
 /* Contenido del modal */
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 25px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 300px;
+  width: 350px; /* Más ancho para un diseño cómodo */
   max-width: 90%;
   text-align: center;
 }
 
 .modal-content h3 {
   margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
 }
 
 /* Botón cerrar */
@@ -140,7 +171,7 @@ label {
 
 input {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 5px;
@@ -152,5 +183,16 @@ input:focus {
 }
 
 button[type="submit"] {
-  margin-top: 10px;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #2980b9;
 }
