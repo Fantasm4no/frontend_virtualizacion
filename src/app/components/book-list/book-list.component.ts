@@ -3,6 +3,7 @@ import { Book } from '../../models/book';
 import { BookService } from '../../services/book.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-book-list',
@@ -12,15 +13,18 @@ import { FormsModule } from '@angular/forms';
 })
 export class BookListComponent implements OnInit {
   books: Book[] = [];
+  files: string[] = [];
+  selectedFile: File | null = null; // Archivo seleccionado para subir
   showModal = false; // Estado del modal para agregar
   showModifyModal = false; // Estado del modal para modificar
   newBook: Partial<Book> = {}; // Libro nuevo
   currentBook: Partial<Book> = {}; // Libro actual para modificar
 
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private fileService: FileService) {}
 
   ngOnInit(): void {
     this.loadBooks();
+    this.loadFiles();
   }
 
   // Cargar libros desde el API
@@ -31,6 +35,18 @@ export class BookListComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching books:', error);
+      }
+    );
+  }
+
+  // Cargar archivos desde el API
+  loadFiles(): void {
+    this.fileService.getFiles().subscribe(
+      (files: string[]) => {
+        this.files = files;
+      },
+      (error) => {
+        console.error('Error fetching files:', error);
       }
     );
   }
@@ -103,5 +119,47 @@ export class BookListComponent implements OnInit {
         console.error('Error deleting book:', error);
       }
     );
+  }
+
+  // Descargar un archivo
+  downloadFile(filename: string): void {
+    this.fileService.downloadFile(filename).subscribe(
+      (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Error downloading file:', error);
+      }
+    );
+  }
+
+  // Manejar la selección de un archivo
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
+  // Subir un archivo
+  onFileUpload(): void {
+    if (this.selectedFile) {
+      this.fileService.uploadFile(this.selectedFile).subscribe(
+        () => {
+          alert('Archivo subido con éxito');
+          this.loadFiles(); // Recargar la lista de archivos
+        },
+        (error) => {
+          console.error('Error uploading file:', error);
+        }
+      );
+    } else {
+      alert('Por favor selecciona un archivo primero.');
+    }
   }
 }

@@ -1,56 +1,80 @@
 <div *ngIf="books.length; else noBooks">
-    <h2>Book List</h2>
-    <ul>
-      <li *ngFor="let book of books">
-        <div>
-          <strong>{{ book.title }}</strong>
-          <span> by {{ book.author }}</span>
-        </div>
-        <button class="button delete-button" (click)="deleteBook(book.id)">Delete</button>
-        <button class="button modify-button" (click)="openModifyModal(book)">Modify</button>
-      </li>
-    </ul>
-    <button class="button add-button" (click)="openModal()">Add New Book</button>
+  <h2>Book List</h2>
+  <ul>
+    <li *ngFor="let book of books">
+      <div>
+        <strong>{{ book.title }}</strong>
+        <span> by {{ book.author }}</span>
+      </div>
+      <button class="button delete-button" (click)="deleteBook(book.id)">Delete</button>
+      <button class="button modify-button" (click)="openModifyModal(book)">Modify</button>
+    </li>
+  </ul>
+  <button class="button add-button" (click)="openModal()">Add New Book</button>
+</div>
+<ng-template #noBooks>
+  <p>No books available.</p>
+</ng-template>
+
+<!-- Modal para agregar un libro -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h3>Add New Book</h3>
+    <form (ngSubmit)="addBook()">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input id="title" type="text" [(ngModel)]="newBook.title" name="title" required />
+      </div>
+      <div class="form-group">
+        <label for="author">Author:</label>
+        <input id="author" type="text" [(ngModel)]="newBook.author" name="author" required />
+      </div>
+      <button class="button" type="submit">Submit</button>
+    </form>
   </div>
-  <ng-template #noBooks>
-    <p>No books available.</p>
-  </ng-template>
-  
-  <!-- Modal para agregar un libro -->
-  <div class="modal" *ngIf="showModal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h3>Add New Book</h3>
-      <form (ngSubmit)="addBook()">
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input id="title" type="text" [(ngModel)]="newBook.title" name="title" required />
-        </div>
-        <div class="form-group">
-          <label for="author">Author:</label>
-          <input id="author" type="text" [(ngModel)]="newBook.author" name="author" required />
-        </div>
-        <button class="button" type="submit">Submit</button>
-      </form>
-    </div>
+</div>
+
+<!-- Modal para modificar un libro -->
+<div class="modal" *ngIf="showModifyModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModifyModal()">&times;</span>
+    <h3>Modify Book</h3>
+    <form (ngSubmit)="updateBook()">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input id="title" type="text" [(ngModel)]="currentBook.title" name="title" required />
+      </div>
+      <div class="form-group">
+        <label for="author">Author:</label>
+        <input id="author" type="text" [(ngModel)]="currentBook.author" name="author" required />
+      </div>
+      <button class="button" type="submit">Save Changes</button>
+    </form>
   </div>
-  
-  <!-- Modal para modificar un libro -->
-  <div class="modal" *ngIf="showModifyModal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModifyModal()">&times;</span>
-      <h3>Modify Book</h3>
-      <form (ngSubmit)="updateBook()">
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input id="title" type="text" [(ngModel)]="currentBook.title" name="title" required />
-        </div>
-        <div class="form-group">
-          <label for="author">Author:</label>
-          <input id="author" type="text" [(ngModel)]="currentBook.author" name="author" required />
-        </div>
-        <button class="button" type="submit">Save Changes</button>
-      </form>
-    </div>
-  </div>
-  
+</div>
+
+<hr />
+
+<!-- Sección para visualizar archivos -->
+<div *ngIf="files.length; else noFiles">
+  <h2>File List</h2>
+  <ul>
+    <li *ngFor="let file of files">
+      {{ file }}
+      <button class="button download-button" (click)="downloadFile(file)">
+        Download
+      </button>
+    </li>
+  </ul>
+</div>
+<ng-template #noFiles>
+  <p>No files available.</p>
+</ng-template>
+
+<!-- Formulario para subir archivos -->
+<h3>Upload File</h3>
+<form (ngSubmit)="onFileUpload()">
+  <input type="file" (change)="onFileSelected($event)" />
+  <button class="button" type="submit">Upload</button>
+</form>
