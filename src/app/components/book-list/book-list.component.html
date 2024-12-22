@@ -73,8 +73,11 @@
 </ng-template>
 
 <!-- Formulario para subir archivos -->
+<!-- Formulario para subir archivos -->
 <h3>Upload File</h3>
+<p>Solo se permiten imágenes en formato .jpg, .jpeg, o .png.</p>
 <form (ngSubmit)="onFileUpload()">
   <input type="file" (change)="onFileSelected($event)" />
   <button class="button" type="submit">Upload</button>
 </form>
+

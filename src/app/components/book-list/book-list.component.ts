@@ -142,9 +142,16 @@ export class BookListComponent implements OnInit {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
+      const allowedExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!allowedExtensions.includes(file.type)) {
+        alert('Por favor selecciona un archivo de imagen válido (.jpg, .jpeg, .png).');
+        this.selectedFile = null; // Limpiar archivo seleccionado
+        return;
+      }
+      this.selectedFile = file; // Asignar archivo si es válido
     }
   }
+  
 
   // Subir un archivo
   onFileUpload(): void {
@@ -156,10 +163,11 @@ export class BookListComponent implements OnInit {
         },
         (error) => {
           console.error('Error uploading file:', error);
+          alert('Error al subir el archivo. Por favor asegúrate de que sea una imagen válida (.jpg, .jpeg, .png).');
         }
       );
     } else {
       alert('Por favor selecciona un archivo primero.');
     }
-  }
+  }  
 }
