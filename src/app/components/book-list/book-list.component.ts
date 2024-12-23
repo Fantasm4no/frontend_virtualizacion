@@ -13,18 +13,16 @@ import { FileService } from '../../services/file.service';
 })
 export class BookListComponent implements OnInit {
   books: Book[] = [];
-  files: string[] = [];
   selectedFile: File | null = null; // Archivo seleccionado para subir
   showModal = false; // Estado del modal para agregar
   showModifyModal = false; // Estado del modal para modificar
-  newBook: Partial<Book> = {}; // Libro nuevo
-  currentBook: Partial<Book> = {}; // Libro actual para modificar
+  newBook: Partial<Book> = {}; // Datos del libro nuevo
+  currentBook: Partial<Book> = {}; // Datos del libro actual para modificar
 
   constructor(private bookService: BookService, private fileService: FileService) {}
 
   ngOnInit(): void {
     this.loadBooks();
-    this.loadFiles();
   }
 
   // Cargar libros desde el API
@@ -39,19 +37,6 @@ export class BookListComponent implements OnInit {
     );
   }
 
-  // Cargar archivos desde el API
-  loadFiles(): void {
-    this.fileService.getFiles().subscribe(
-      (response: { files: string[] }) => {
-        console.log('URLs de las imágenes:', response.files);
-        this.files = response.files;
-      },
-      (error) => {
-        console.error('Error al cargar las imágenes:', error);
-      }
-    );
-  }
-
   // Abrir el modal para agregar un libro
   openModal(): void {
     this.showModal = true;
@@ -61,20 +46,35 @@ export class BookListComponent implements OnInit {
   closeModal(): void {
     this.showModal = false;
     this.newBook = {}; // Limpiar el formulario
+    this.selectedFile = null; // Limpiar archivo seleccionado
   }
 
-  // Agregar un nuevo libro
+  // Agregar un nuevo libro con imagen
   addBook(): void {
-    if (this.newBook.title && this.newBook.author) {
+    if (this.newBook.title && this.newBook.author && this.selectedFile) {
+      // Crear el libro
       this.bookService.addBook(this.newBook as Book).subscribe(
         (book: Book) => {
-          this.books.push(book); // Agregar el nuevo libro a la lista
-          this.closeModal();
+          // Subir la imagen asociada
+          this.fileService.uploadFile(this.selectedFile!, book.id).subscribe(
+            () => {
+              alert('Libro e imagen agregados con éxito.');
+              this.books.push(book); // Agregar el libro a la lista
+              this.closeModal();
+            },
+            (error) => {
+              console.error('Error uploading file:', error);
+              alert('Error al subir la imagen. Inténtalo nuevamente.');
+            }
+          );
         },
         (error) => {
           console.error('Error adding book:', error);
+          alert('Error al agregar el libro.');
         }
       );
+    } else {
+      alert('Por favor completa todos los campos y selecciona un archivo.');
     }
   }
 
@@ -122,23 +122,6 @@ export class BookListComponent implements OnInit {
     );
   }
 
-  // Descargar un archivo
-  downloadFile(filename: string): void {
-    this.fileService.downloadFile(filename).subscribe(
-      (blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        a.click();
-        window.URL.revokeObjectURL(url);
-      },
-      (error) => {
-        console.error('Error downloading file:', error);
-      }
-    );
-  }
-
   // Manejar la selección de un archivo
   onFileSelected(event: any): void {
     const file = event.target.files[0];
@@ -152,23 +135,4 @@ export class BookListComponent implements OnInit {
       this.selectedFile = file; // Asignar archivo si es válido
     }
   }
-  
-
-  // Subir un archivo
-  onFileUpload(): void {
-    if (this.selectedFile) {
-      this.fileService.uploadFile(this.selectedFile).subscribe(
-        () => {
-          alert('Archivo subido con éxito');
-          this.loadFiles(); // Recargar la lista de archivos
-        },
-        (error) => {
-          console.error('Error uploading file:', error);
-          alert('Error al subir el archivo. Por favor asegúrate de que sea una imagen válida (.jpg, .jpeg, .png).');
-        }
-      );
-    } else {
-      alert('Por favor selecciona un archivo primero.');
-    }
-  }  
 }

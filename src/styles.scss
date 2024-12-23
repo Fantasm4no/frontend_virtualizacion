@@ -34,7 +34,7 @@ ul {
   padding: 0;
   margin: 0 auto;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px; /* Ajuste para mayor espacio */
 }
 
 li {
@@ -44,8 +44,8 @@ li {
   margin: 20px 0;
   padding: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* Coloca los botones debajo */
+  align-items: center; /* Centra todo horizontalmente */
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -54,19 +54,34 @@ li:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
 }
 
-li div {
+/* Detalles del libro */
+.book-details {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  margin-right: 20px;
+  align-items: center; /* Centra la miniatura y el texto verticalmente */
+  gap: 20px; /* Espaciado entre miniatura y texto */
+  width: 100%;
+  margin-bottom: 15px; /* Espaciado entre detalles y botones */
 }
 
-li strong {
+.book-thumbnail {
+  max-width: 100px;
+  max-height: 150px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column; /* Coloca título y autor verticalmente */
+  align-items: flex-start; /* Alinea el texto a la izquierda */
+}
+
+.book-info strong {
   font-size: 1.3rem;
   color: #2c3e50;
 }
 
-li span {
+.book-info span {
   font-size: 1.1rem;
   color: #7f8c8d;
   margin-top: 5px;
@@ -75,7 +90,8 @@ li span {
 /* Botones */
 .button-group {
   display: flex;
-  gap: 10px;
+  gap: 10px; /* Espaciado entre botones */
+  justify-content: center; /* Centra los botones */
 }
 
 .button {
@@ -197,47 +213,6 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #2980b9;
-}
-
-/* Imágenes subidas */
-.images-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.image-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.uploaded-image {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.download-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.download-button:hover {
-  background-color: #0056b3;
 }
 
 /* Espaciado adicional */

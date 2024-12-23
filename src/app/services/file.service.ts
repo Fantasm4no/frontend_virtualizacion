@@ -14,14 +14,14 @@ export class FileService {
   getFiles(): Observable<{ files: string[] }> {
     return this.http.get<{ files: string[] }>(`${this.baseUrl}`);
   }
-  
 
-  // Subir un archivo
-  uploadFile(file: File): Observable<any> {
+  // Subir un archivo asociado a un libro por su ID
+  uploadFile(file: File, bookId: number): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post(`${this.baseUrl}/upload`, formData);
+    // La URL incluye el ID del libro
+    return this.http.post(`${this.baseUrl}/upload/${bookId}`, formData);
   }
 
   // Descargar un archivo por nombre
