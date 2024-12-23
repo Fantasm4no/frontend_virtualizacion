@@ -225,3 +225,11 @@ p {
   font-size: 1.2rem;
   color: #666;
 }
+
+.book-thumbnail {
+  width: 100px;
+  height: 150px;
+  background-color: #f0f0f0;
+  display: block;
+  object-fit: cover;
+}

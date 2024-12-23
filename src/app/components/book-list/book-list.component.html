@@ -5,7 +5,7 @@
     <li *ngFor="let book of books" class="book-item">
       <!-- Contenedor de la imagen y la información -->
       <div class="book-details">
-        <img [src]="book.image_url || 'assets/placeholder.jpg'" alt="{{ book.title }}" class="book-thumbnail" />
+        <img [src]="book.image_url ? book.image_url + '?t=' + timestamp : ''" alt="{{ book.title }}" class="book-thumbnail" />
         <div class="book-info">
           <strong>{{ book.title }}</strong>
           <span>by {{ book.author }}</span>

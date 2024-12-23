@@ -25,17 +25,20 @@ export class BookListComponent implements OnInit {
     this.loadBooks();
   }
 
-  // Cargar libros desde el API
+  timestamp = new Date().getTime();
+
   loadBooks(): void {
     this.bookService.getBooks().subscribe(
       (data: Book[]) => {
         this.books = data;
+        this.timestamp = new Date().getTime(); // Actualiza el timestamp
       },
       (error) => {
         console.error('Error fetching books:', error);
       }
     );
   }
+
 
   // Abrir el modal para agregar un libro
   openModal(): void {
@@ -52,14 +55,13 @@ export class BookListComponent implements OnInit {
   // Agregar un nuevo libro con imagen
   addBook(): void {
     if (this.newBook.title && this.newBook.author && this.selectedFile) {
-      // Crear el libro
       this.bookService.addBook(this.newBook as Book).subscribe(
         (book: Book) => {
           // Subir la imagen asociada
           this.fileService.uploadFile(this.selectedFile!, book.id).subscribe(
             () => {
               alert('Libro e imagen agregados con éxito.');
-              this.books.push(book); // Agregar el libro a la lista
+              this.loadBooks(); // Recarga la lista de libros
               this.closeModal();
             },
             (error) => {
@@ -76,7 +78,7 @@ export class BookListComponent implements OnInit {
     } else {
       alert('Por favor completa todos los campos y selecciona un archivo.');
     }
-  }
+  }  
 
   // Abrir el modal para modificar un libro
   openModifyModal(book: Book): void {
@@ -94,33 +96,34 @@ export class BookListComponent implements OnInit {
   updateBook(): void {
     if (this.currentBook.id && this.currentBook.title && this.currentBook.author) {
       this.bookService.updateBook(this.currentBook.id, this.currentBook as Book).subscribe(
-        (updatedBook: Book) => {
-          // Actualiza el libro en la lista local
-          const index = this.books.findIndex((b) => b.id === updatedBook.id);
-          if (index !== -1) {
-            this.books[index] = updatedBook;
-          }
+        () => {
+          alert('Libro actualizado con éxito.');
+          this.loadBooks(); // Recarga la lista de libros
           this.closeModifyModal();
         },
         (error) => {
           console.error('Error updating book:', error);
+          alert('Error al actualizar el libro.');
         }
       );
     }
   }
+  
 
   // Eliminar un libro por ID
   deleteBook(id: number): void {
     this.bookService.deleteBook(id).subscribe(
       () => {
-        // Actualizar la lista local eliminando el libro
-        this.books = this.books.filter((book) => book.id !== id);
+        alert('Libro eliminado con éxito.');
+        this.loadBooks(); // Recarga la lista de libros
       },
       (error) => {
         console.error('Error deleting book:', error);
+        alert('Error al eliminar el libro.');
       }
     );
   }
+  
 
   // Manejar la selección de un archivo
   onFileSelected(event: Event): void {
