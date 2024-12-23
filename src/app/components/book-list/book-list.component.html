@@ -1,17 +1,21 @@
-<div *ngIf="books.length; else noBooks">
+<div class="section">
+  <!-- Lista de libros -->
   <h2>Book List</h2>
   <ul>
     <li *ngFor="let book of books">
       <div>
         <strong>{{ book.title }}</strong>
-        <span> by {{ book.author }}</span>
+        <span>by {{ book.author }}</span>
       </div>
-      <button class="button delete-button" (click)="deleteBook(book.id)">Delete</button>
-      <button class="button modify-button" (click)="openModifyModal(book)">Modify</button>
+      <div class="button-group">
+        <button class="button delete-button" (click)="deleteBook(book.id)">Delete</button>
+        <button class="button modify-button" (click)="openModifyModal(book)">Modify</button>
+      </div>
     </li>
   </ul>
   <button class="button add-button" (click)="openModal()">Add New Book</button>
 </div>
+
 <ng-template #noBooks>
   <p>No books available.</p>
 </ng-template>
@@ -54,17 +58,13 @@
   </div>
 </div>
 
-<hr />
-
-<!-- Sección para visualizar imágenes -->
-<div *ngIf="files.length; else noFiles">
+<div class="section">
+  <!-- Imágenes subidas -->
   <h2>Uploaded Images</h2>
-  <div class="images-grid">
+  <div *ngIf="files.length; else noFiles" class="images-grid">
     <div class="image-container" *ngFor="let file of files">
       <img [src]="file" alt="Uploaded Image" class="uploaded-image" />
-      <button class="button download-button" (click)="downloadFile(file)">
-        Download
-      </button>
+      <button class="button download-button" (click)="downloadFile(file)">Download</button>
     </div>
   </div>
 </div>
@@ -73,12 +73,12 @@
   <p>No images available.</p>
 </ng-template>
 
-
-<!-- Formulario para subir archivos -->
-<h3>Upload File</h3>
-<p>Solo se permiten imágenes en formato .jpg, .jpeg, o .png.</p>
-<form (ngSubmit)="onFileUpload()">
-  <input type="file" (change)="onFileSelected($event)" />
-  <button class="button" type="submit">Upload</button>
-</form>
-
+<div class="section">
+  <!-- Formulario para subir archivos -->
+  <h3>Upload File</h3>
+  <p>Only .jpg, .jpeg, and .png files are allowed.</p>
+  <form (ngSubmit)="onFileUpload()">
+    <input type="file" (change)="onFileSelected($event)" />
+    <button class="button" type="submit">Upload</button>
+  </form>
+</div>

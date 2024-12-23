@@ -11,11 +11,21 @@ body {
 }
 
 /* Contenedor principal */
-h2 {
+h2, h3 {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #333;
-  margin-bottom: 1.5rem; /* Más espacio debajo del título */
+  margin-bottom: 1.5rem;
+}
+
+/* Secciones principales */
+.section {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Lista de libros */
@@ -24,33 +34,31 @@ ul {
   padding: 0;
   margin: 0 auto;
   width: 100%;
-  max-width: 600px; /* Ancho máximo */
+  max-width: 600px;
 }
 
-/* Estilo de cada libro */
 li {
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 20px 0; /* Espaciado entre libros */
-  padding: 20px; /* Más espacio interno */
+  margin: 20px 0;
+  padding: 20px;
   display: flex;
-  justify-content: space-between; /* Separar texto y botones */
-  align-items: center; /* Centrar verticalmente */
+  justify-content: space-between;
+  align-items: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 li:hover {
-  transform: translateY(-2px); /* Animación al pasar el cursor */
+  transform: translateY(-2px);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Contenedor del texto */
 li div {
   display: flex;
-  flex-direction: column; /* Pone el autor debajo del título */
-  flex-grow: 1; /* Permite que el texto ocupe el espacio disponible */
-  margin-right: 20px; /* Espacio entre el texto y los botones */
+  flex-direction: column;
+  flex-grow: 1;
+  margin-right: 20px;
 }
 
 li strong {
@@ -61,13 +69,13 @@ li strong {
 li span {
   font-size: 1.1rem;
   color: #7f8c8d;
-  margin-top: 5px; /* Espaciado entre el título y el autor */
+  margin-top: 5px;
 }
 
 /* Botones */
 .button-group {
   display: flex;
-  gap: 10px; /* Espaciado uniforme entre botones */
+  gap: 10px;
 }
 
 .button {
@@ -78,7 +86,6 @@ li span {
   transition: background 0.2s;
 }
 
-/* Botón Delete */
 .delete-button {
   background: #e74c3c;
   color: white;
@@ -88,7 +95,6 @@ li span {
   background: #c0392b;
 }
 
-/* Botón Modify */
 .modify-button {
   background: #f39c12;
   color: white;
@@ -98,7 +104,6 @@ li span {
   background: #e67e22;
 }
 
-/* Botón Add New Book */
 .add-button {
   display: block;
   margin: 30px auto;
@@ -115,7 +120,6 @@ li span {
   background-color: #27ae60;
 }
 
-
 /* Modal */
 .modal {
   position: fixed;
@@ -130,13 +134,12 @@ li span {
   align-items: center;
 }
 
-/* Contenido del modal */
 .modal-content {
   background: white;
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 350px; /* Más ancho para un diseño cómodo */
+  width: 400px;
   max-width: 90%;
   text-align: center;
 }
@@ -147,7 +150,6 @@ li span {
   color: #333;
 }
 
-/* Botón cerrar */
 .close {
   position: absolute;
   top: 10px;
@@ -197,6 +199,7 @@ button[type="submit"]:hover {
   background-color: #2980b9;
 }
 
+/* Imágenes subidas */
 .images-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -209,6 +212,11 @@ button[type="submit"]:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .uploaded-image {
@@ -230,4 +238,15 @@ button[type="submit"]:hover {
 
 .download-button:hover {
   background-color: #0056b3;
+}
+
+/* Espaciado adicional */
+form {
+  margin-top: 20px;
+}
+
+p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
 }
