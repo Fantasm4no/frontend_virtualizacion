@@ -123,16 +123,17 @@ export class BookListComponent implements OnInit {
   }
 
   // Manejar la selección de un archivo
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
+  onFileSelected(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
     if (file) {
       const allowedExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
       if (!allowedExtensions.includes(file.type)) {
-        alert('Por favor selecciona un archivo de imagen válido (.jpg, .jpeg, .png).');
-        this.selectedFile = null; // Limpiar archivo seleccionado
+        alert('Please select a valid image file (.jpg, .jpeg, .png).');
+        this.selectedFile = null;
         return;
       }
       this.selectedFile = file; // Asignar archivo si es válido
     }
-  }
+  }  
 }

@@ -5,7 +5,7 @@
     <li *ngFor="let book of books" class="book-item">
       <!-- Contenedor de la imagen y la información -->
       <div class="book-details">
-        <img [src]="book.image_url" alt="{{ book.title }}" class="book-thumbnail" />
+        <img [src]="book.image_url || 'assets/placeholder.jpg'" alt="{{ book.title }}" class="book-thumbnail" />
         <div class="book-info">
           <strong>{{ book.title }}</strong>
           <span>by {{ book.author }}</span>
@@ -39,6 +39,10 @@
         <label for="author">Author:</label>
         <input id="author" type="text" [(ngModel)]="newBook.author" name="author" required />
       </div>
+      <div class="form-group">
+        <label for="file">Upload Image:</label>
+        <input id="file" type="file" (change)="onFileSelected($event)" required />
+      </div>
       <button class="button" type="submit">Submit</button>
     </form>
   </div>
@@ -61,14 +65,4 @@
       <button class="button" type="submit">Save Changes</button>
     </form>
   </div>
-</div>
-
-<!-- Formulario para subir archivos -->
-<div class="section">
-  <h3>Upload File</h3>
-  <p>Only .jpg, .jpeg, and .png files are allowed.</p>
-  <form (ngSubmit)="onFileUpload()">
-    <input type="file" (change)="onFileSelected($event)" />
-    <button class="button" type="submit">Upload</button>
-  </form>
 </div>
