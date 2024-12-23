@@ -11,9 +11,10 @@ export class FileService {
   constructor(private http: HttpClient) {}
 
   // Obtener la lista de archivos
-  getFiles(): Observable<string[]> {
-    return this.http.get<string[]>(this.baseUrl);
+  getFiles(): Observable<{ files: string[] }> {
+    return this.http.get<{ files: string[] }>(`${this.baseUrl}`);
   }
+  
 
   // Subir un archivo
   uploadFile(file: File): Observable<any> {

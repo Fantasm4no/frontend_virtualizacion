@@ -56,23 +56,24 @@
 
 <hr />
 
-<!-- Sección para visualizar archivos -->
+<!-- Sección para visualizar imágenes -->
 <div *ngIf="files.length; else noFiles">
-  <h2>File List</h2>
-  <ul>
-    <li *ngFor="let file of files">
-      {{ file }}
+  <h2>Uploaded Images</h2>
+  <div class="images-grid">
+    <div class="image-container" *ngFor="let file of files">
+      <img [src]="file" alt="Uploaded Image" class="uploaded-image" />
       <button class="button download-button" (click)="downloadFile(file)">
         Download
       </button>
-    </li>
-  </ul>
+    </div>
+  </div>
 </div>
+
 <ng-template #noFiles>
-  <p>No files available.</p>
+  <p>No images available.</p>
 </ng-template>
 
-<!-- Formulario para subir archivos -->
+
 <!-- Formulario para subir archivos -->
 <h3>Upload File</h3>
 <p>Solo se permiten imágenes en formato .jpg, .jpeg, o .png.</p>

@@ -42,11 +42,12 @@ export class BookListComponent implements OnInit {
   // Cargar archivos desde el API
   loadFiles(): void {
     this.fileService.getFiles().subscribe(
-      (files: string[]) => {
-        this.files = files;
+      (response: { files: string[] }) => {
+        console.log('URLs de las imágenes:', response.files);
+        this.files = response.files;
       },
       (error) => {
-        console.error('Error fetching files:', error);
+        console.error('Error al cargar las imágenes:', error);
       }
     );
   }
