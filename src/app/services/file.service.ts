@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FileService {
-  private baseUrl = 'http://34.67.85.184:3000/api/files'; // URL base de la API de archivos
+  private baseUrl = 'http://34.49.140.83:3000/api/files'; // URL base de la API de archivos
 
   constructor(private http: HttpClient) {}
 
