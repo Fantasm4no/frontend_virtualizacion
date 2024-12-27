@@ -7,7 +7,7 @@ import { Book } from '../models/book';
   providedIn: 'root'
 })
 export class BookService {
-  private baseUrl = 'http://34.49.140.83:3000/api/books'; // URL base de la API
+  private baseUrl = 'http://34.8.231.8:3000/api/books'; // URL base de la API
 
   constructor(private http: HttpClient) {}
 
