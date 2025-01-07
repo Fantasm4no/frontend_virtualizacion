@@ -1,6 +1,6 @@
 <div class="section">
   <!-- Lista de libros -->
-  <h2>Book List</h2>
+  <h2>Lista de Libros</h2>
   <ul class="book-list">
     <li *ngFor="let book of books" class="book-item">
       <!-- Contenedor de la imagen y la información -->
@@ -8,13 +8,13 @@
         <img [src]="book.image_url ? book.image_url + '?t=' + timestamp : ''" alt="{{ book.title }}" class="book-thumbnail" />
         <div class="book-info">
           <strong>{{ book.title }}</strong>
-          <span>by {{ book.author }}</span>
+          <span>por {{ book.author }}</span>
         </div>
       </div>
       <!-- Botones -->
       <div class="button-group">
-        <button class="button delete-button" (click)="deleteBook(book.id)">Delete</button>
-        <button class="button modify-button" (click)="openModifyModal(book)">Modify</button>
+        <button class="button delete-button" (click)="deleteBook(book.id)">Borrar</button>
+        <button class="button modify-button" (click)="openModifyModal(book)">Modificar</button>
       </div>
     </li>
   </ul>
@@ -29,7 +29,7 @@
 <div class="modal" *ngIf="showModal">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
-    <h3>Add New Book</h3>
+    <h3>Agregar Nuevo Libro</h3>
     <form (ngSubmit)="addBook()">
       <div class="form-group">
         <label for="title">Title:</label>
@@ -52,7 +52,7 @@
 <div class="modal" *ngIf="showModifyModal">
   <div class="modal-content">
     <span class="close" (click)="closeModifyModal()">&times;</span>
-    <h3>Modify Book</h3>
+    <h3>Modificar Libro</h3>
     <form (ngSubmit)="updateBook()">
       <div class="form-group">
         <label for="title">Title:</label>
@@ -62,7 +62,7 @@
         <label for="author">Author:</label>
         <input id="author" type="text" [(ngModel)]="currentBook.author" name="author" required />
       </div>
-      <button class="button" type="submit">Save Changes</button>
+      <button class="button" type="submit">Guardar Cambios</button>
     </form>
   </div>
 </div>
